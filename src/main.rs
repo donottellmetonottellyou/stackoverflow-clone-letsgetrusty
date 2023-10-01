@@ -22,5 +22,5 @@ async fn rocket() -> _ {
                 delete_answer
             ],
         )
-        .attach(CORS)
+        .attach(Cors)
 }
