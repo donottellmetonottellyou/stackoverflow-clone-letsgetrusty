@@ -19,7 +19,7 @@ async fn rocket() -> _ {
     pretty_env_logger::init();
     dotenv().ok();
 
-    let pool = PgPoolOptions::new()
+    let _pool = PgPoolOptions::new()
         .max_connections(5)
         .connect(&std::env::var("DATABASE_URL").expect("DATABASE_URL must be set."))
         .await
