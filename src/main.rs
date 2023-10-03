@@ -1,39 +1,39 @@
-// TODO: import log, pretty_env_logger, dotenv, and PgPoolOptions
-
 mod cors;
 mod handlers;
 mod models;
-
-#[macro_use]
-extern crate rocket;
+mod persistance;
 
 use cors::*;
 use handlers::*;
-use log::info;
+
+#[macro_use]
+extern crate rocket;
+#[macro_use]
+extern crate log;
+
+use dotenvy::dotenv;
 use sqlx::postgres::PgPoolOptions;
 
 #[launch]
 async fn rocket() -> _ {
     pretty_env_logger::init();
-    dotenvy::dotenv().expect("Failed to initialize dotenvy.");
+    dotenv().ok();
 
-    let database_url =
-        dotenvy::var("DATABASE_URL").expect("Missing DATABASE_URL environment variable.");
     let pool = PgPoolOptions::new()
         .max_connections(5)
-        .connect(&database_url)
+        .connect(&std::env::var("DATABASE_URL").expect("DATABASE_URL must be set."))
         .await
-        .expect("Failed to connect to database.");
+        .expect("Failed to create Postgres connection pool!");
 
-    // Test
-    let records = sqlx::query!("SELECT * FROM questions")
+    // TODO: Delete this query
+    let recs = sqlx::query!("SELECT * FROM questions")
         .fetch_all(&pool)
         .await
-        .expect("Failed to query database.");
+        .unwrap();
+
+    // TODO: Delete these log statements
     info!("********* Question Records *********");
-    for record in records {
-        info!("{record:?}");
-    }
+    info!("{:?}", recs);
 
     rocket::build()
         .mount(

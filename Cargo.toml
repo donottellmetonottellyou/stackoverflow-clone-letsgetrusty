@@ -7,10 +7,12 @@
     edition = "2021"
 
 [dependencies]
+    async-trait       = "0.1.*"
     dotenvy           = "0.15.*"
     log               = "0.4.*"
     pretty_env_logger = "0.5.*"
-    tokio             = { version = "1.*", features = ["full"] }
     rocket            = { version = "0.5.0-rc.3", features = ["json"] }
     serde             = { version = "1.*", features = ["derive"] }
     sqlx              = { version = "0.7.*", features = ["runtime-tokio-rustls", "postgres", "time", "uuid"] }
+    thiserror         = "1.0"
+    tokio             = { version = "1.*", features = ["full"] }
