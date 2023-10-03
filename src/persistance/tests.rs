@@ -118,7 +118,7 @@ mod answers_tests {
             .await
             .map_err(|e| format!("{:?}", e))?;
 
-        if result.content != "test content".to_owned() {
+        if &result.content != "test content" {
             return Err("Incorrect answer content".to_owned());
         }
 
@@ -208,7 +208,7 @@ mod answers_tests {
             .await
             .map_err(|e| format!("{:?}", e))?;
 
-        if results.len() != 0 {
+        if !results.is_empty() {
             return Err("Answer was not deleted".to_owned());
         }
 
@@ -355,9 +355,7 @@ mod questions_tests {
             .await
             .map_err(|e| format!("{:?}", e))?;
 
-        if result.title != "test title".to_owned()
-            || result.description != "test description".to_owned()
-        {
+        if &result.title != "test title" || &result.description != "test description" {
             return Err("Incorrect title or description".to_owned());
         }
 
@@ -434,7 +432,7 @@ mod questions_tests {
 
         let results = doa.get_questions().await.map_err(|e| format!("{:?}", e))?;
 
-        if results.len() != 0 {
+        if !results.is_empty() {
             return Err("Question was not deleted".to_owned());
         }
 
