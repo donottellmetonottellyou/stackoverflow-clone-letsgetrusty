@@ -9,8 +9,6 @@ use persistance::{answers_dao::*, questions_dao::*};
 
 #[macro_use]
 extern crate rocket;
-#[macro_use]
-extern crate log;
 
 use dotenvy::dotenv;
 use sqlx::postgres::PgPoolOptions;

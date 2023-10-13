@@ -1,3 +1,5 @@
+#![allow(clippy::borrowed_box)]
+
 use crate::{
     models::{Answer, AnswerDetail, AnswerId, DBError, Question, QuestionDetail, QuestionId},
     persistance::{answers_dao::AnswersDao, questions_dao::QuestionsDao},
