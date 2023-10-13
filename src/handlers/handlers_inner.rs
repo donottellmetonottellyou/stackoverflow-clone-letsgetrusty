@@ -37,11 +37,11 @@ pub async fn read_questions(
 }
 
 pub async fn delete_question(
-    question_id: QuestionId,
+    question_uuid: QuestionId,
     questions_dao: &Box<dyn QuestionsDao + Sync + Send>,
 ) -> Result<(), HandlerError> {
     questions_dao
-        .delete_question(question_id.question_uuid)
+        .delete_question(question_uuid.question_uuid)
         .await
         .map_err(|e| {
             error!("{e:?}");
@@ -63,11 +63,11 @@ pub async fn create_answer(
 }
 
 pub async fn read_answers(
-    question_id: QuestionId,
+    question_uuid: QuestionId,
     answers_dao: &Box<dyn AnswersDao + Send + Sync>,
 ) -> Result<Vec<AnswerDetail>, HandlerError> {
     answers_dao
-        .get_answers(question_id.question_uuid)
+        .get_answers(question_uuid.question_uuid)
         .await
         .map_err(|e| {
             error!("{e:?}");
@@ -76,11 +76,11 @@ pub async fn read_answers(
 }
 
 pub async fn delete_answer(
-    answer_id: AnswerId,
+    answer_uuid: AnswerId,
     answers_dao: &Box<dyn AnswersDao + Send + Sync>,
 ) -> Result<(), HandlerError> {
     answers_dao
-        .delete_answer(answer_id.answer_uuid)
+        .delete_answer(answer_uuid.answer_uuid)
         .await
         .map_err(|e| {
             error!("{e:?}");
